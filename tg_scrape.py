@@ -1,10 +1,14 @@
 from telethon.sync import TelegramClient
 import csv
+import pandas as pd
+import time
 
 api_hash = "" #API Hash
 api_id = "" # API ID
 
-today = ["2019-06-29", "2019-07-01"] #Fill in depending on the day (format yyyy-mm-dd)
+range_to_search = pd.date_range("2019-06-28", "2019-07-03").tolist() #Replace dates depending on the timespan
+today = [str(i)[:10] for i in range_to_search]
+
 destinations = {
 'Name':'Link', 
 } #Add desired name + link as required
@@ -24,3 +28,4 @@ with open('chats.csv', 'w') as file:
 						print(f"{k.message}\n")
 						msg_total += 1
 		file.writerow([i, str(msg_total)])
+		time.sleep(120)
